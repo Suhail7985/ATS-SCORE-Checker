@@ -20,7 +20,12 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ 
+  storage: storage, 
+  fileFilter: fileFilter,
+  limits: { fileSize: 2 * 1024 * 1024 } // 2MB limit
+});
+
 
 router.post("/upload", upload.single("resume"), async (req, res) => {
   console.log("✅ API HIT: /upload route");  // Checks if API is being called

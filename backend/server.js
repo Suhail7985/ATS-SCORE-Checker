@@ -2,12 +2,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./db");
-const resumeRoutes = require("./routes/resumeRoutes"); 
+const resumeRoutes = require("./routes/resumeRoutes"); // Ensure correct path
 const jobRoutes = require("./routes/jobRoutes");
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 5173;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -16,6 +16,12 @@ app.use(cors());
 
 // Connect to MongoDB
 connectDB();
+
+app.use(cors({ origin: "http://localhost:3000" })); 
+app.use((req, res, next) => {
+  console.log(`🔥 Received request: ${req.method} ${req.url}`);
+  next();
+});
 
 // Routes
 app.use("/api/resume", resumeRoutes);

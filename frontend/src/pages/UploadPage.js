@@ -26,9 +26,12 @@ const UploadPage = () => {
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const uploadedFile = event.target.files?.[0] || event.dataTransfer?.files?.[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+    }
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
@@ -71,10 +74,15 @@ const UploadPage = () => {
           ))}
         </select>
 
-        <div className="upload-box">
-          <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange} />
-          <p className="upload-text">Drag & Drop your resume here or <span className="browse">browse</span></p>
-        </div>
+        <div 
+  className="upload-box"
+  onDragOver={(e) => e.preventDefault()}  // Prevent default behavior
+  onDrop={handleFileChange} // Handle file drop
+>
+  <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange} />
+  <p className="upload-text">Drag & Drop your resume here or <span className="browse">browse</span></p>
+</div>
+
 
         {error && <p className="error">❌ {error}</p>}
         {result && (
