@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "https://cvglass.onrender.com"; // Make sure this is correct
+const API_URL = "https://ats-score-checker.onrender.com"; // Make sure this is correct
 
 export const uploadResume = async (formData) => {
   try {
-    const response = await fetch("https://cvglass.onrender.com/api/resume/upload", {
+    const response = await fetch("https://ats-score-checker.onrender.com/api/resume/upload", {
       method: "POST",
       body: formData, // Do not set Content-Type manually (FormData handles it)
     });
