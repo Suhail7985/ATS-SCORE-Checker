@@ -1,0 +1,122 @@
+/* Global Dark Theme */
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  /* Upload Container */
+  .upload-container {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+  
+  /* Title */
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Description */
+  .description {
+    font-size: 14px;
+    color: #bbbbbb;
+    margin-bottom: 20px;
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    width: 100%;
+    padding: 10px;
+    background: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+  
+  .dropdown:focus {
+    outline: 2px solid #4a90e2;
+  }
+  
+  /* Upload Box */
+  .upload-box {
+    border: 2px dashed #4a90e2;
+    padding: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    background: #2b2b2b;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+  
+  .upload-box:hover {
+    background: #333;
+  }
+  
+  /* Upload Text */
+  .upload-text {
+    color: #bbbbbb;
+    font-size: 14px;
+  }
+  
+  .browse {
+    color: #4a90e2;
+    cursor: pointer;
+  }
+  
+  /* Error Message */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Result Box */
+  .result-box {
+    background: #272727;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+  
+  .result-text {
+    color: #4caf50;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Submit Button */
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background: #4a90e2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background: #357ab7;
+  }
+  
+  .submit-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+  }
+  
