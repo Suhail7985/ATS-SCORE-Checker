@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ Fix CORS: Ensure the frontend is allowed
 app.use(cors({
-    origin: "https://ats-score-checker-1.onrender.com", // ✅ Your frontend URL
+    origin: "https://cvglass.onrender.com", // ✅ Your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true // ✅ Allow cookies & authentication headers
