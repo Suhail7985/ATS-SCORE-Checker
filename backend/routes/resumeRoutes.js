@@ -72,10 +72,10 @@ router.post("/upload", upload.single("resume"), async (req, res) => {
     ];
 
     const jobKeywords = jobDescription === "General Resume Analysis"
-      ? generalKeywords
-      : extractKeywords(jobDescription).map(word => natural.PorterStemmer.stem(word));
+      ? generalKeywords.map(w => w.toLowerCase()) // General keywords should be lowercase for matching
+      : extractKeywords(jobDescription); // No need to stem twice
 
-    const resumeKeywords = extractKeywords(extractedText).map(word => natural.PorterStemmer.stem(word));
+    const resumeKeywords = extractKeywords(extractedText); // No need to stem twice
 
     // Keyword Matching Logic
     const keywordSynonyms = {
@@ -87,12 +87,13 @@ router.post("/upload", upload.single("resume"), async (req, res) => {
     };
 
     const getKeywordVariations = (word) => [word, ...(keywordSynonyms[word] || [])];
+    
+    // Precompute all valid variations for the job keywords to avoid doing it inside the loop
+    const allJobVariations = jobKeywords.flatMap(jobWord => getKeywordVariations(jobWord));
 
     const matchedKeywords = resumeKeywords.filter(resumeWord =>
-      jobKeywords.some(jobWord =>
-        getKeywordVariations(jobWord).some(variant =>
-          resumeWord.includes(variant) || natural.JaroWinklerDistance(resumeWord, variant) > 0.85
-        )
+      allJobVariations.some(variant =>
+        resumeWord.includes(variant) || natural.JaroWinklerDistance(resumeWord, variant) > 0.85
       )
     );
 
@@ -149,16 +150,16 @@ router.post("/upload", upload.single("resume"), async (req, res) => {
   }
 });
 
+const stopWords = new Set([
+  "a", "an", "the", "and", "or", "but", "if", "then", "for", "with", "on", "at", "by", "from", "about",
+  "as", "into", "like", "through", "after", "over", "under", "again", "further", "here", "there", "when",
+  "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "some", "such"
+]);
+
 // ✅ Extract Keywords
 function extractKeywords(text) {
   const tokenizer = new natural.WordTokenizer();
   let words = tokenizer.tokenize(text.toLowerCase());
-
-  const stopWords = new Set([
-    "a", "an", "the", "and", "or", "but", "if", "then", "for", "with", "on", "at", "by", "from", "about",
-    "as", "into", "like", "through", "after", "over", "under", "again", "further", "here", "there", "when",
-    "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "some", "such"
-  ]);
 
   words = words.filter((word) => !stopWords.has(word));
   return words.map(word => stemmer.stem(word));

@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_URL = "https://ats-score-checker.onrender.com/api/resume/upload"; // Ensure this is correct
+// Automatically use local backend in development, and Render backend in production
+const API_URL = process.env.NODE_ENV === "development"
+  ? "http://localhost:3000/api/resume/upload"
+  : "https://ats-score-checker.onrender.com/api/resume/upload";
 
 export const uploadResume = async (formData) => {
   try {
