@@ -8,9 +8,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Fix CORS: Ensure the frontend is allowed
+// ✅ Fix CORS: Ensure the frontend is allowed from production and local environments
 app.use(cors({
-    origin: "https://cvglass.onrender.com", // ✅ Your frontend URL
+    origin: ["https://cvglass.onrender.com", "http://localhost:3000", "http://localhost:3001", "http://localhost:5173"], 
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true // ✅ Allow cookies & authentication headers
